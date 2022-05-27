@@ -1,0 +1,113 @@
+* {
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    background-color: rgb(29, 29, 29);
+    color: #fff;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+
+.title_h2 {
+    display: inline-block;
+    position: relative;
+    font-size: 45px;
+    color: #ee82ee;
+    &::after {
+        content: '';
+        position: absolute;
+        top: 10px;
+        right: -5px;
+        width: 1px;
+        height: 70%;
+        border-right: 2px solid #ee82ee;
+        animation: blink 0.8s infinite ease;
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-button {
+    display: none
+}
+
+.scrollPath {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 100%;
+    background: rgba(255,255,255,0.05);
+}
+
+.progressBar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 10px;
+    background: linear-gradient(to top, #008aff, #00ffe7);
+    animation: animScrollBar 5s linear infinite;
+    border-radius: 3px;
+}
+
+@keyframes animScrollBar {
+    0% {
+        filter: hue-rotate(0deg)
+    }
+    0% {
+        filter: hue-rotate(360deg)
+    }
+}
+
+@media screen and (max-width: 1320px) {
+    .container {
+        padding-left: 50px
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .container {
+        width: 70%;
+    }
+    .title_h2 {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 991px) {
+    .title_h2 {
+        font-size: 38px;
+    }
+}
+
+@media (max-width: 767px) {
+    .container {
+        padding-left: 0;
+    }
+}
+
+@import 'blocks/homePage/homePage.scss';
+@import 'blocks/about/about.scss';
+@import 'blocks/skills/skills.scss';
+@import 'blocks/contacts/contacts.scss'
+
