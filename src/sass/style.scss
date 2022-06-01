@@ -38,6 +38,11 @@ a {
     }
 }
 
+.error {
+    color: aquamarine;
+    margin-bottom: 15px;
+}
+
 @keyframes blink {
     0% {
         opacity: 0;

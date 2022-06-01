@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function() {
         //Animation main screen
 
@@ -154,103 +155,85 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //Form
 
-    const form = document.querySelector('form');
+    const form = document.querySelector('form'),
+          inputs = document.querySelectorAll('.form__input'),
+          name = document.querySelector('.form__input_name'),
+          phone = document.querySelector('.form__input_phone'),
+          subject = document.querySelector('.form__input_subject'),
+          message = document.querySelector('.form__input_message');
 
-    // form.addEventListener('submit', (e) => {
-    //     e.preventDefault();
+    function validateForms (form) {
 
-    //     const target = e.target;
+        $(form).validate({
+            rules: {
+            name: "required",
+            phone: {
+                required: true,
+                minlength: 11
+            },
+            message: "required",
+            },
+            messages: {
+            name: "Пожалуйста, введите свое имя",
+            phone: {
+                required: "Пожалуйста, введите номер телефона",
+                minlength: jQuery.validator.format("Введите {11} символов")
+            },
+            message: "Пожалуйста, введите сообщение"
+            }
+        })
+    }
 
-    //     target.ajax({
-    //         type: 'POST',
-    //         url: './mailer/smart.php',
-    //         data: target.serialize()
-    //     }).done(function() {
-    //         target.find('input').val('');
-
-    //         form.trigger('reset');
-    //     })
-    //     return false;
-    // })
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        let error = formValidate(form);
-
-        let formData = new FormData(form);
-        
-        form.classList.add('_sending');
-        let response = await fetch('sendmail.php', {
-            method: 'POST',
-            body: formData
-        });
-        if(response.ok) {
-            let result = await response.json();
-            alert(result.message);
-            form.reset();
-            form.classList.remove('_sending');
-        } else {
-            alert ('Ошибка');
-            form.classList.remove('_sending');
-        }
+    inputs.forEach(input => {
+        input.addEventListener('change', () => {
+            validateForms(form)
+        })
     })
 
-    function formValidate (form) {
-        let error = 0;
-
-        let formReq = document.querySelectorAll('._req');
-
-        for (let i = 0; i < formReq.length; i++) {
-            const input = formReq[i];
-
-            if (input.getAttribute('name') == 'name') {
-                if(input.value === '') {
-                    formAddError(input);
-                    error++;
-                } else {
-                    formRemoveError(input);
-                    error--;
-                }
-            }
+    const confettiSettings = { target: 'my-canvas' };
+    const boardConfetti = document.querySelector('#my-canvas');
+    const confetti = new ConfettiGenerator(confettiSettings);
+    const btnForm = document.querySelector('#text-me');
 
 
-            if (input.getAttribute('name') == 'email') {
-                if(input.value === '') {
-                    formAddError(input);
-                    error++;
-                } else {
-                    formRemoveError(input);
-                    error--;
-                }
-            }
 
-            if (input.getAttribute('name') == 'message') {
-                if(input.value === '' || input.value.length < 10) {
-                    formAddError(input);
-                    error++;
-                } else {
-                    formRemoveError(input);
-                    error--;
-                }
-            }
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        Email.send({
+            Host : "smtp.elasticemail.com",
+            Username : "EmiliyaVolleyball@gmail.com",
+            Password : "3B13F53333C386295B46B93C616DE8C7332B",
+            To : 'EmiliyaVolleyball@gmail.com',
+            From : 'EmiliyaVolleyball@gmail.com',
+            Subject : subject.value,
+            Body : `Hi, Emiliya! My name is ${name.value} <br> ${message.value}`
+        }).then( () => {
+            boardConfetti.style.display = 'block';
+            confetti.render();
+            btnForm.innerHTML = 'Done!'
+        }).catch(
+            err => alert(err)
+        )
+    })
+
+    //input phone
+
+    $.fn.setCursorPosition = function(pos) {
+        if ($(this).get(0).setSelectionRange) {
+          $(this).get(0).setSelectionRange(pos, pos);
+        } else if ($(this).get(0).createTextRange) {
+          var range = $(this).get(0).createTextRange();
+          range.collapse(true);
+          range.moveEnd('character', pos);
+          range.moveStart('character', pos);
+          range.select();
         }
-    }
+    };
 
-    function formAddError(input) {
-        input.parentElement.classList.add('_err');
-        input.classList.add('_err')
-    }
-
-    function formRemoveError(input) {
-        input.parentElement.classList.remove('_err');
-        input.classList.remove('_err')
-    }
-
-    // function emailTest(input) {
-    //     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    //     console.log(re.test(input.value))
-    //     return re.test(input.value)
-    // }
+    $(phone).click(function(){
+        $(this).setCursorPosition(3);
+      }).mask("+7(999) 999-9999");
+      $("#center_not_ok").mask("+7(999) 999-9999");
 
 })

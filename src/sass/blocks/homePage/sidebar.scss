@@ -12,6 +12,7 @@
     height: 100vh;
     text-align: center;
     transition: all .5s ease;
+    z-index: 100;
     &__toggleBtn {
         display: none;
         position: absolute;

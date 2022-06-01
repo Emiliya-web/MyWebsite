@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css">
-    <link rel="icon" href="https://emiliaweb.ru/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./icons/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.min.css">
     <title>Emily's Portfolio</title>
@@ -183,21 +183,28 @@
             <h2 class="title_h2 contacts__title">Contact Me</h2>
             <div class="contacts__wrapper">
                 <form class="form" action="#">
-                    <input name="name" type="text" placeholder="Your name*" class="form__input _req">
-                    <input name="email" type="email" placeholder="Your email*" class="form__input _req">
-                    <input name="subject" type="text" placeholder="Subject (optional)" class="form__input">
-                    <input name="message" type="textarea" placeholder="Message*" class="form__input _req">
+                    <input name="name" type="text" placeholder="Your name*" class="form__input form__input_name">
+                    <input name="phone" type="tel" placeholder="Your phone*" class="form__input form__input_phone">
+                    <input name="subject" type="text" placeholder="Subject (optional)" class="form__input form__input_subject">
+                    <input name="message" type="textarea" placeholder="Message*" class="form__input form__input_message">
                     <p>Or text me directly on <br> 
                         <a href="mailto:emiliyavolleyball@gmail.com" target="_blank">EmiliyaVolleyball@gmail.com</a>
                     </p>
-                    <button type="submit">Text me</button>
+                    <button id="text-me" type="submit">Text me</button>
+                    <canvas id="my-canvas"></canvas>
                 </form>
                 <div id="map" class="map"></div>
             </div>
         </div>
     </section>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script> 
+    <script src="js/maskedinput.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
     <script src="js/vanilla_tilt.js"></script>
+    <script src="js/confetti.js"></script>
     <script src="js/index.js"></script>
 </body>
 </html>
